@@ -3,7 +3,6 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs, useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
 import { logout } from '../../FirebaseConfig';
-
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -22,6 +21,7 @@ export default function TabLayout() {
   const handleSignOut = async () => {
     await logout();
     router.replace('/');
+
   };
 
   return (
