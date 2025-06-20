@@ -1,12 +1,13 @@
 import { StyleSheet, TouchableOpacity, Text, View, Alert } from 'react-native';
-import { logout } from '../../FirebaseConfig';
+import { auth } from '../../FirebaseConfig';
+import { signOut } from 'firebase/auth';
 import { router } from 'expo-router';
 
 export default function TabOneScreen() {
 
   const handleSignOut = async () => {
     try {
-      await logout();
+      await signOut(auth);
       router.replace('/');
     } catch (error: any) {
       console.error('Error signing out:', error);

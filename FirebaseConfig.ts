@@ -1,33 +1,35 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { initializeAuth, getReactNativePersistence, signOut } from 'firebase/auth';
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getFirestore } from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBYljYRA7hOx6We49p6Gp_v9yg4naslfrw",
-  authDomain: "test-e2ba9.firebaseapp.com",
-  projectId: "test-e2ba9",
-  storageBucket: "test-e2ba9.firebasestorage.app",
-  messagingSenderId: "795917993262",
-  appId: "1:795917993262:web:50d95dd193ca6e3fd926bf"
+  apiKey: process.env.EXPO_PUBLIC_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_APP_ID
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = initializeAuth(app, {
+let app;
+if (getApps().length === 0) {
+    app = initializeApp(firebaseConfig);
+} else {
+    app = getApp();
+}
+
+const auth = initializeAuth(app, {
     persistence: getReactNativePersistence(AsyncStorage),
 });
-export const db = getFirestore(app);
 
-export async function logout() {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    console.error('Error signing out:', error);
-  }
-}
+const db = getFirestore(app);
+
+export { auth, db };
