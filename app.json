@@ -14,7 +14,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.redasalhi.firebase-expo-video"
     },
     "android": {
       "adaptiveIcon": {
