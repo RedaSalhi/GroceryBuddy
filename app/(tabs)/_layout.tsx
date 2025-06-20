@@ -2,9 +2,7 @@ import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs, useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../FirebaseConfig';
-
+import { logout } from '../../FirebaseConfig';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -21,12 +19,9 @@ export default function TabLayout() {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.replace('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+    await logout();
+    router.replace('/');
+
   };
 
   return (
