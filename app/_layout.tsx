@@ -65,6 +65,12 @@ function RootLayoutNav() {
   }, []);
 
   useEffect(() => {
+    if (!user) {
+      setHasNavigated(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (isLoading || hasNavigated) return;
 
     const inAuthGroup = segments[0] === '(tabs)';
